@@ -1,0 +1,166 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.fny.reports</groupId>
+		<artifactId>reports</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.fny.reports.controller</groupId>
+	<artifactId>reports-controller</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>reports-controller</name>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env>dev</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>qa</id>
+			<properties>
+				<env>qa</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<env>prod</env>
+			</properties>
+		</profile>
+	</profiles>
+	<dependencies>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fny.reports.service</groupId>
+			<artifactId>reports-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fny.reports.commons</groupId>
+			<artifactId>reports-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+<dependency>
+       <groupId>org.apache.velocity</groupId>
+       <artifactId>velocity</artifactId>
+       <version>1.7</version>
+</dependency>
+<dependency>
+       <groupId>javax.mail</groupId>
+       <artifactId>mail</artifactId>
+       <version>1.4</version>
+</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<finalName>reports</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-checkstyle-plugin</artifactId> 
+				<version>2.6</version> <dependencies> <dependency> <groupId>com.app.build.tool</groupId> 
+				<artifactId>build-tool</artifactId> <version>1.0-SNAPSHOT</version> </dependency> 
+				</dependencies> <configuration> <configLocation>buildtools/checkstyle.xml</configLocation> 
+				<suppressionsLocation>buildtools/checkstyle-suppressions.xml</suppressionsLocation> 
+				<propertyExpansion>project.build.directory=${project.build.directory}</propertyExpansion> 
+				<failOnViolation>true</failOnViolation> <consoleOutput>true</consoleOutput> 
+				<encoding>UTF-8</encoding> </configuration> <executions> <execution> <phase>compile</phase> 
+				<goals> <goal>check</goal> </goals> </execution> </executions> </plugin> -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<failOnError>true</failOnError>
+					<threshold>High</threshold>
+					<effort>Default</effort>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/properties/${env}</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>**/*</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+<plugin>
+                                <groupId>org.mortbay.jetty</groupId>
+                                <artifactId>jetty-maven-plugin</artifactId>
+                                <version>8.1.16.v20140903</version>
+                                <configuration>
+                                        <webAppConfig>
+                                                <contextPath>/reports</contextPath>
+                                        </webAppConfig>
+                                </configuration>
+                        </plugin>
+
+		</plugins>
+		<filters>
+			<filter>src/main/properties/${env}/db.properties</filter>
+			<filter>src/main/properties/${env}/report.properties</filter>
+			
+		</filters>
+		<!-- Resources -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+</project>
