@@ -15,12 +15,11 @@
 
 <body>
 	<h1>
-		<center>FASHION AND YOU-REPORT VIEWER</center>
+		<center>SUBSCRIPTION</center>
 	</h1>                                               
 	
 	<form id="queryBox" action="api/countHome" method="POST">
 	
-		
 		Enter Your Name<input type="text" name="character_name">
 <br />
 Enter Your Id <input type="text" name="character_id" />
