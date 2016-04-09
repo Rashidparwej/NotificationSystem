@@ -3,39 +3,40 @@
 <html>
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-<title>Org Chart Example - jsFiddle demo</title>
+<title>Report</title>
 
 <style type="text/css">
 </style>
 
-<link
-	href="https://ajax.googleapis.com/ajax/static/modules/gviz/1.1/orgchart/orgchart.css"
-	rel="stylesheet" type="text/css">
 </head>
 
 <body>
 	<h1>
 		<center>SUBSCRIPTION</center>
-	</h1>                                               
-	
-	<form id="queryBox" action="api/countHome" method="POST">
-	
-		Enter Your Name<input type="text" name="character_name">
-<br />
-Enter Your Id <input type="text" name="character_id" />
+	</h1>
 
-		Enter Id of Your subscription <input type="text" name="subscribed_character_id">
-<br />
-Enter Name of Your Subscription <input type="text" name="subscribed_character" />
-Enter Your Subscription Field
-<select name="field">
-  <option value="location">location</option>
-  <option value="skill">skill</option>
-  <option value="status">status</option>
-</select>
-			                                        	
-		 	 <input type="submit" value="POST DATA" />
+	<form id="queryBox" action="api/countHome"
+		method="POST">
+		<b><character name/b><br> <input type="text" name="character_name"><br>
+
+		<b>Character Id</b><br> <input type="text" name="character_id"><br>
+		
+		<b>subscribed_character_id</b><br> <input type="text" name="subscribed_character_id"><br>
+
+		<b>subscribed_character Name</b><br> <input type="text" name="subscribed_character"><br>
+		
+
+		<b>Field subscribed on</b><br> <input type="text" name="field"><br>
+		
+		<input type="submit" value="GET DATA" />
+
+
+
 	</form>
+
+
+
+
 
 </body>
 </html>

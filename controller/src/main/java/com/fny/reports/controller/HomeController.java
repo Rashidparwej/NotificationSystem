@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fny.reports.commons.entity.SubscriptionDO;
+import com.fny.reports.service.persistence.dao.SubscriptionDao;
 
 @Controller
 @RequestMapping("/api")
@@ -24,19 +25,20 @@ public class HomeController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-
+   @Autowired
+   SubscriptionDao subscriptionDao;
                                                    
 	public HomeController() {                      
 		System.out.println("Bean created");
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET) //Default subscription page
 	public String index() {
 		System.out.println("Invoked home");
 		return "index";
 	}
 
-	@RequestMapping(value = "/countHome", method = RequestMethod.POST)
+	@RequestMapping(value = "/countHome", method = RequestMethod.POST)     //It is invoked from frontEnd Used for subsribing one charcter to another
 	public int countHome(@RequestParam("character_name") String character_name, @RequestParam("character_id") Integer character_id,
 			@RequestParam("subscribed_character_id") Integer subscribed_character_id,
 			@RequestParam("subscribed_character") String subscribed_character,
@@ -49,10 +51,8 @@ public class HomeController {
 		subscription.setField(field);
 		subscription.setSubscriptionId(subscribed_character_id);
 		subscription.setSubscriptionName(subscribed_character);
-		  String query="insert into Gossiphgirl.subscription (character_id,character_name,subscribed_character,subscribed_character_id,field_subscribed) values"
-				  +"('"+subscription.getCharacterId()+"','"+subscription.getCharacterName()+"','"+subscription.getSubscriptionId()+"','"+subscription.getSubscriptionName()+"','"+subscription.getField()+"')";  
-				    return jdbcTemplate.update(query);  
-		
+		return subscriptionDao.insertIntoSubscriptionTable(subscription);
+		 
 		
        
 	}

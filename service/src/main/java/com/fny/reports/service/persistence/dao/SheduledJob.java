@@ -4,6 +4,7 @@ import java.io.StringWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -54,7 +55,7 @@ public class SheduledJob {
 	@Value("${reports.main.senderAlert}")
 	private String subjectAlert;
 	
-	@Scheduled(fixedRate =60000)  
+    @Scheduled(fixedRate =60000)  
 	public void checkForUpdates() throws Exception
 	{
 		Template vTemplate = velocityEngine.getTemplate(countTemplate);
@@ -65,7 +66,7 @@ public class SheduledJob {
 
 		String body = writer.toString();    
 		LOG.info("inside sheduled function");
-	
+	                                                 
 		List<BlairDO> blairlist=blairCheck();
 		LOG.info(blairlist);
 		if(blairlist!=null)
@@ -189,6 +190,8 @@ public class SheduledJob {
 				eml.add(rs.getString("email"));
 				
 			}
+			removeDuplicate(eml);
+			LOG.info("getting email ids for chunk"+eml);
 			return eml;
 		}
 
@@ -208,6 +211,7 @@ public class SheduledJob {
 				eml.add(rs.getString("email"));
 				
 			}
+			removeDuplicate(eml);
 			return eml;
 		}
 
@@ -227,6 +231,8 @@ public class SheduledJob {
 				eml.add(rs.getString("email"));
 				
 			}
+			removeDuplicate(eml);
+			LOG.info("Getting emails for nate"+eml);
 			return eml;
 		}
 
@@ -234,6 +240,7 @@ public class SheduledJob {
 	return eml;
 
 }
+	
 	private void sendReportMail(final String to, final String subject, final String sender, final String body) {
 		@SuppressWarnings("unchecked")
 		FutureTask futureTask = new FutureTask(new Callable() { 
@@ -249,5 +256,11 @@ public class SheduledJob {
 			}
 		});
 		emailExecutorService.execute(futureTask);
+	}
+	public static <String> void removeDuplicate(List<String> list) {
+		LOG.info("removing Duplictes");
+		HashSet<String> h = new HashSet<String>(list);
+		list.clear();
+		list.addAll(h);
 	}
 }

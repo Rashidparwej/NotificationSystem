@@ -6,9 +6,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class NotificationServiceConfig {
 
-	/*@Value("rashid.parwej@fashionandyou.com")
-	private String notificationEmailTo;*/
-
 	@Value("/emailBody2.vm")
 	private String mailVelocityTemplate;
 

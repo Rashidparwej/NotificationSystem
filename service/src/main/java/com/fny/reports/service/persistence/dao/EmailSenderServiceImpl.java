@@ -28,7 +28,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 	private static String host = "smtp.gmail.com";
 	private static String port = "587";
 	private static String username = "parwej.rashid7@gmail.com";
-	private static String password = "PARWEJarshad6@";
+	private static String password = "PARWEJ6@";
 	private static String auth = "true";                     
 
 	@Override                                                       
