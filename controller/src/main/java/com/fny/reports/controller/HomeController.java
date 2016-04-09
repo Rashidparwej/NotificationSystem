@@ -38,7 +38,7 @@ public class HomeController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/countHome", method = RequestMethod.POST)     //It is invoked from frontEnd Used for subsribing one charcter to another
+	@RequestMapping(value = "/subscribe", method = RequestMethod.POST)     //It is invoked from frontEnd Used for subsribing one charcter to another
 	public int countHome(@RequestParam("character_name") String character_name, @RequestParam("character_id") Integer character_id,
 			@RequestParam("subscribed_character_id") Integer subscribed_character_id,
 			@RequestParam("subscribed_character") String subscribed_character,

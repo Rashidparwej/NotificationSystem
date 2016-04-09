@@ -15,7 +15,7 @@
 		<center>SUBSCRIPTION</center>
 	</h1>
 
-	<form id="queryBox" action="api/countHome"
+	<form id="queryBox" action="api/subscribe"
 		method="POST">
 		<b><character name/b><br> <input type="text" name="character_name"><br>
 

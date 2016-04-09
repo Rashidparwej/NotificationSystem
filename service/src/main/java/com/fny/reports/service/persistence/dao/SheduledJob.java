@@ -55,7 +55,7 @@ public class SheduledJob {
 	@Value("${reports.main.senderAlert}")
 	private String subjectAlert;
 	
-    @Scheduled(fixedRate =60000)  
+    @Scheduled(fixedRate =600000)  
 	public void checkForUpdates() throws Exception
 	{
 		Template vTemplate = velocityEngine.getTemplate(countTemplate);
@@ -107,7 +107,7 @@ public class SheduledJob {
 		
 	public List<BlairDO> blairCheck() throws Exception {
 		String sql = "select blair_id,location,skill,status"			
-				+ " from Gossiphgirl.blair";
+				+ " from Gossiphgirl.blair where created_date between (now()-interval 10 minute) and now()";
         LOG.info(sql);
 		List<BlairDO> empList = this.jdbcTemplate.query(sql, new ResultSetExtractor<List<BlairDO>>() {
 
@@ -132,7 +132,7 @@ public class SheduledJob {
 	
 	public List<ChunckDO> chunckCheck() throws Exception {
 		String sql = "select chunck_id,location,skill,status"			
-				+ " from chunck"+" where created_date between (now()-interval 1 hour) and now()";
+				+ " from chunck"+" where created_date between (now()-interval 10 minute) and now()";
         
 		List<ChunckDO> empList = this.jdbcTemplate.query(sql, new ResultSetExtractor<List<ChunckDO>>() {
 
@@ -155,7 +155,7 @@ public class SheduledJob {
 	}
 	public List<NateDO> nateCheck() throws Exception {
 		String sql = "select nate_id,location,skill,status"			
-				+ " from nate"+" where created_date between (now()-interval 1 hour) and now()";
+				+ " from nate"+" where created_date between (now()-interval 10 minute) and now()";
         
 		List<NateDO> empList = this.jdbcTemplate.query(sql, new ResultSetExtractor<List<NateDO>>() {
 
