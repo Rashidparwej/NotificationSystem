@@ -44,8 +44,7 @@ public class SheduledJob {
 	
 	@Autowired                                              
 	VelocityEngine velocityEngine;                                            
-	@Value("${reports.main.alerttemplate}")                           
-	private String  alerttemplate;
+
 	@Value("${reports.main.counttemplate}")                        
 	private String countTemplate;                                          
 	@Value("${reports.main.subject}")
